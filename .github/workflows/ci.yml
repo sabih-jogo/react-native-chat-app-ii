@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: master
+#  pull_request:
+#    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+#    container: pandoc/latex
+    steps:
+      - uses: actions/checkout@v2
+#      - name: Install mustache (to update the date)
+#        run:  apk add ruby && gem install mustache
+#      - name: creates output
+#        run:  sh ./build.sh
+      - name: Pushes to another repository
+        id: push_directory
+        uses: sabih-jogo/react-native-chat-app-ii@master
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'cometchat-app/android/'
+          destination-github-username: 'sabih-jogo'
+          destination-repository-name: 'react-native-chat-app'
+          user-email: sabih@jogo.ai
+          commit-message: See ORIGIN_COMMIT from $GITHUB_REF
+          target-branch: master
+          # target-directory: output_new
+      - name: Test get variable exported by push-to-another-repository
+        run: echo $DESTINATION_CLONED_DIRECTORY
