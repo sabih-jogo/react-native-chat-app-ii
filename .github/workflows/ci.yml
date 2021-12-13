@@ -25,6 +25,7 @@ jobs:
           source-directory: 'cometchat-app/android/'
           destination-github-username: 'sabih-jogo'
           destination-repository-name: 'react-native-chat-app'
+          target-directory: 'cometchat-app/android/'
           user-email: sabih@jogo.ai
           commit-message: See ORIGIN_COMMIT from $GITHUB_REF
           target-branch: master
