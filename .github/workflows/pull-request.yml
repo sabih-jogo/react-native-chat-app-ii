@@ -23,9 +23,3 @@ jobs:
         pr_draft: true                                    # Creates pull request as draft
         pr_allow_empty: true                              # Creates pull request even if there are no changes
         github_token: ${{ secrets.GITHUB_TOKEN }}
-
-# 123123131232535235323523225352
-
-# 123123131232535235323523225352
-
-# 123123131232535235323523225352
