@@ -1,0 +1,65 @@
+name: Send submodule updates to parent repo
+
+on:
+  push: # enabling push event on master branch to fire the workflow
+    branches:
+      - main
+
+
+jobs:
+  update_android:
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      # forward changes to Android repository dev branch
+      - name: Checkout to Android repository       
+        uses: actions/checkout@v2
+        with: 
+          repository: sabih-jogo/react-native-chat-app
+          ref: master #specify the branch name to checkout
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Branch name
+        run: echo running on branch ${GITHUB_REF##*/}
+        
+      - name: Pull & update submodules on each branch recursively
+        run: |
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
+          
+      - name: Commit
+        run: |
+          git config user.email "arsalan@jogo.ai"
+          git config user.name "GitHub Actions - update submodules"
+          git add --all
+          git commit -m "Update submodules" || echo "No changes to commit"
+          git push
+
+#   update_ios:
+#     needs: update_android #run after 1st job is successfull
+#     runs-on: ubuntu-latest
+
+#     steps:
+
+#       # forward changes to IOS repository dev branch
+#       - name: Checkout to IOS repository             
+#         uses: actions/checkout@v2
+#         with: 
+#           repository: JOGO-FOOTBALL/GAMES-IOS
+#           ref:  dev #specify the branch name to checkout
+#           token: ${{ secrets.PRIVATE_TOKEN_GITHUB }}
+
+#       - name: Pull & update submodules on each branch recursively
+#         run: |
+#           git submodule update --init --recursive
+#           git submodule update --recursive --remote
+          
+#       - name: Commit
+#         run: |
+#           git config user.email "arsalan@jogo.ai"
+#           git config user.name "GitHub Actions - update submodules"
+#           git add --all
+#           git commit -m "Update submodules" || echo "No changes to commit"
+#           git push
+      
