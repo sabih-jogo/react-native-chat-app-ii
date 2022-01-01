@@ -30,7 +30,7 @@ jobs:
           
       - name: Commit
         run: |
-          git config user.email "arsalan@jogo.ai"
+          git config user.email "sabih@jogo.ai"
           git config user.name "GitHub Actions - update submodules"
           git add --all
           git commit -m "Update submodules" || echo "No changes to commit"
