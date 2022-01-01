@@ -3,7 +3,7 @@ name: Send submodule updates to parent repo
 on:
   push: # enabling push event on master branch to fire the workflow
     branches:
-      - main
+      - master
 
 
 jobs:
